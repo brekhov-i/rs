@@ -1,0 +1,46 @@
+@import "./fonts.scss";
+@import "primevue/resources/themes/lara-light-indigo/theme.css";
+@import "primevue/resources/primevue.css";
+@import "primeicons/primeicons.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  width: 100%;
+  height: 100%;
+}
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  height: auto;
+  max-width: 1400px;
+  margin: 0 auto;
+
+  @media screen and (max-width: 1440px) {
+    max-width: 1199px;
+  }
+}
+
+.p-slider {
+  &:not(.p-disabled) {
+    .p-slider-handle:hover {
+      background-color: #00bb6d;
+      border-color: #00bb6d;
+    }
+  }
+  .p-slider-range {
+    background-color: #00bb6d;
+  }
+  .p-slider-handle {
+    border: 2px solid #00bb6d;
+  }
+}

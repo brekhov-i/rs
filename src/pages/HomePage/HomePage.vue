@@ -2,9 +2,10 @@
   <div class="homePage">
     <div class="container">
       <div class="homePage__wrapper">
-        <Saidbar classNames="homePage__saidbar" @updateFilters="filters = $event"/>
-        <div class="homePage__main">
-          <CartHotel v-for="hotel in hotels" :key="hotel.name" :dataHotel="hotel"/>
+        <Saidbar classNames="homePage__saidbar" @updateFilters="filters = $event" />
+        <div class="homePage__main pt-[38px]">
+          <NotFound v-if="hotels.length === 0" @cancelFilter="cancelFilter()"/>
+          <HotelList v-else :hotels="hotels" />
         </div>
       </div>
     </div>
@@ -14,18 +15,24 @@
 <script setup lang="ts">
 import { IFilters } from "@/app/types";
 import { IHotel } from "@/app/types/store";
-import CartHotel from "@/entities/CartHotel/CartHotel.vue";
 import Saidbar from "@/widgets/Saidbar/Saidbar.vue";
+import HotelList from "@/widgets/HotelList/HotelList.vue";
+import NotFound from "@/entities/NotFound/NotFound.vue";
 import { ComputedRef, Ref, computed, onMounted, ref, watch } from "vue";
 import { useStore } from "vuex";
 
 const store = useStore();
 const filters: Ref<IFilters | null> = ref<IFilters | null>(null)
 const hotels: ComputedRef<IHotel[]> = computed<IHotel[]>(() => store.getters['hotel/viewFilteredHotels'](filters.value));
+// const hotels: IHotel[] = [];
 
 watch(filters, newv => {
   console.log(newv)
 })
+
+const cancelFilter = () => {
+  filters.value = null;
+}
 
 onMounted(() => {
   store.dispatch("getCountries");

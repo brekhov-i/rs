@@ -53,6 +53,7 @@ const clearFilter = () => {
       max: 200000,
     },
   }
+  emits('updateFilters', null)
 }
 
 const enterFilters = (value: IFilters) => {
